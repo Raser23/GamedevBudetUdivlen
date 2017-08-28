@@ -1,1 +1,2 @@
 # GamedevBudetUdivlen
+Да это #жестко
