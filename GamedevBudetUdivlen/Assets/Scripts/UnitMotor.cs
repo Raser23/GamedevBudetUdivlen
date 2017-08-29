@@ -22,7 +22,7 @@ public class UnitMotor : MonoBehaviour
         float dst = (target.position2d - (Vector2)transform.position).magnitude;
         //print(dst);
         if (dst < 0.0001f){
-            target = target.Next();
+            target = target.Next(gameObject);
             return; 
         }
 

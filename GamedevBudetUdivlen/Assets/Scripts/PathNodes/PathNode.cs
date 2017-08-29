@@ -7,12 +7,17 @@ public class PathNode : MonoBehaviour
 
     [SerializeField] public PathNode nextNode;
 
-    public PathNode Next()
+    public virtual PathNode Next(GameObject obj)
     {
         if (nextNode)
             return nextNode;
         else
             return null;
+    }
+
+    public virtual void Start()
+    {
+        
     }
 
     public Vector3 position{
@@ -28,7 +33,7 @@ public class PathNode : MonoBehaviour
 		}
 	}
 
-    private void OnDrawGizmos()
+    public virtual void OnDrawGizmos()
     {
         if(nextNode != null){
             Gizmos.color = Color.black;
