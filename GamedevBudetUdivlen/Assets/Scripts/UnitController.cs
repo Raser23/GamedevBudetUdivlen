@@ -18,6 +18,9 @@ public class UnitController : MonoBehaviour {
 		
 	}
     void OnHPBelowZero(){
+        DestorySelf();
+    }
+    public void DestorySelf(){
         Destroy(gameObject);
     }
 }
