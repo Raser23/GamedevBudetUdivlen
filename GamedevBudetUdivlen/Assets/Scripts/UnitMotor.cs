@@ -7,35 +7,12 @@ public class UnitMotor : MonoBehaviour
 
     public UnitStats stats;
 
-    public float turnDst = 0.5f;
+    public float turnDst = 0f;
 
     PathNode target;
 
     Path path;
-    //List<Vector2> path;
 
-    void Update()
-    {
-        
-    }
-
-    void MoveToTarget()
-    {
-
-
-        Vector2 direction = (target.position2d - (Vector2)transform.position).normalized;
-        float dst = (target.position2d - (Vector2)transform.position).magnitude;
-        if (dst < 0.0001f){
-            target = target.Next(gameObject);
-            return; 
-        }
-
-        float moveAmount = stats.speed * Time.deltaTime;
-
-        Vector2 moveVector = Mathf.Min(dst, moveAmount) * direction;
-        FaceTarget();
-        transform.position += (Vector3)moveVector;
-    }
 
 
     IEnumerator FollowPath()
@@ -43,7 +20,7 @@ public class UnitMotor : MonoBehaviour
         bool followingPath = true;
         int pathIndex = 0;
 
-        FacePoint(path.lookPoints[0]);
+        FacePoint2(path.lookPoints[0]);
 
         while (followingPath)
         {
@@ -71,19 +48,20 @@ public class UnitMotor : MonoBehaviour
         }
     }
 
-	void FaceTarget()
-	{
-        Quaternion newRotation = Quaternion.LookRotation(transform.position - (Vector3)target.position2d, Vector3.forward);
-        newRotation.x = 0.0f;
-        newRotation.y = 0.0f;
-        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * stats.rotateSpeed);
-	}
+	
     void FacePoint(Vector3 pnt)
 	{
 		Quaternion newRotation = Quaternion.LookRotation(transform.position - pnt, Vector3.forward);
 		newRotation.x = 0.0f;
 		newRotation.y = 0.0f;
 		transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * stats.rotateSpeed);
+	}
+	void FacePoint2(Vector3 pnt)
+	{
+		Quaternion newRotation = Quaternion.LookRotation(transform.position - pnt, Vector3.forward);
+		newRotation.x = 0.0f;
+		newRotation.y = 0.0f;
+        transform.rotation = newRotation;
 	}
 
     public void SetTarget(PathNode _target)

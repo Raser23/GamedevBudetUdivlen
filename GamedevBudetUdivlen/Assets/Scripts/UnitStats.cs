@@ -12,12 +12,22 @@ public class UnitStats : MonoBehaviour
     {
         
         _hp = maxHp;
-        //HP -= 10;
-        //print(HP);
     }
+
     public float HP
     {
         get { return _hp; }
-        set { _hp = value; }
+        set { 
+            _hp = value; 
+            if(_hp<=0)
+            {
+                HpBelowZero.Invoke();    
+            }
+        }
     }
+
+
+	public delegate void StatsAction();
+	public event StatsAction HpBelowZero;
+
 }

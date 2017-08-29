@@ -10,10 +10,14 @@ public class UnitController : MonoBehaviour {
     public void SetTargetNode(PathNode node)
     {
         motor.SetTarget(node);
+        stats.HpBelowZero += OnHPBelowZero;
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+    void OnHPBelowZero(){
+        Destroy(gameObject);
+    }
 }
