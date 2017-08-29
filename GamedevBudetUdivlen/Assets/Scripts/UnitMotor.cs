@@ -81,6 +81,7 @@ public class UnitMotor : MonoBehaviour
 
     public void OnDrawGizmosSelected()
     {
+        if(path != null)
         path.DrawWithGizmos();
         //Gizmos.color = Color.red;
         //Gizmos.DrawRay(transform.position, transform.up*3);

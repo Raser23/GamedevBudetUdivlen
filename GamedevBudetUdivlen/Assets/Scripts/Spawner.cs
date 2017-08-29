@@ -6,29 +6,60 @@ public class Spawner : MonoBehaviour {
 
     public PathNode startNode;
     public float timePerWave;
+    public float timePerUnit;
     public List<Wave> waves;
+    public Wave currentWave;
 
-    private float passedTime;
-    private int spawnedCount;
+    private Queue<Wave> wavesQueue;
 
+	private float passedTimeInWave;
+	private float passedTimeBtwSpawns;
 	void Start () 
-    {
-        passedTime = timePerWave;
-        spawnedCount = 0;
-    }
-    void Update()
-    {
-        passedTime += Time.deltaTime;
-        if(passedTime >= timePerWave && spawnedCount < waves.Count)
+    {   
+        wavesQueue = new Queue<Wave>(waves);
+        if (waves.Count > 0)
         {
-            InstantiateWave(waves[spawnedCount]);
-            spawnedCount++;
-            passedTime = 0;
-        }  
+            currentWave = wavesQueue.Dequeue();
+        }
+        ResetTimeVars();
     }
 
-    void InstantiateWave(Wave w){
-        GameObject unit =  GameObject.Instantiate(w.units[0],transform.position,Quaternion.identity);
-        unit.GetComponent<UnitController>().SetTargetNode(startNode);
+
+
+	void Update()
+    {
+        IncTimeVars();
+        if(passedTimeInWave >= timePerWave && wavesQueue.Count > 0){
+            ResetTimeVars();
+            currentWave = wavesQueue.Dequeue();
+        }
+        if(passedTimeBtwSpawns >= timePerUnit && currentWave.unspawnedUnits >0)
+        {
+            SpawnUnit(currentWave.getUnit());
+            passedTimeBtwSpawns -= timePerUnit;
+        }
+
+
     }
+    void ResetTimeVars()
+    {
+		passedTimeInWave = 0;
+		passedTimeBtwSpawns = 0;
+    }
+	void IncTimeVars()
+	{
+        passedTimeInWave +=Time.deltaTime;
+		passedTimeBtwSpawns += Time.deltaTime;
+	}
+
+    void InstantiateWave(int index){
+       
+        //Wave w = waves[spawnedCount];
+        //GameObject unit =  GameObject.Instantiate(w.units[index],transform.position,Quaternion.identity);
+        //unit.GetComponent<UnitController>().SetTargetNode(startNode);
+    }
+    void SpawnUnit(GameObject prefab){
+        GameObject unit = Instantiate(prefab, transform.position, Quaternion.identity);
+		unit.GetComponent<UnitController>().SetTargetNode(startNode);
+	}
 }
