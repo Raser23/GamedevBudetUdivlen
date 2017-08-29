@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitController : MonoBehaviour {
 
     public UnitMotor motor;
-
+    public UnitStats stats;
      
     public void SetTargetNode(PathNode node)
     {
