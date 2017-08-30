@@ -8,10 +8,9 @@ public class Base : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        //print(other.tag);
         if(other.tag == "Unit")
         {
-            other.gameObject.GetComponentInParent<UnitController>().DestorySelf();
+            other.gameObject.GetComponentInParent<UnitController>().StartToDie();
         }
     }
 }

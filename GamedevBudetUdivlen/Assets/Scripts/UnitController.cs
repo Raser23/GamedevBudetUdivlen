@@ -6,6 +6,7 @@ public class UnitController : MonoBehaviour {
 
     public UnitMotor motor;
     public UnitStats stats;
+    public Animator animator;
      
     public void SetTargetNode(PathNode node)
     {
@@ -18,9 +19,16 @@ public class UnitController : MonoBehaviour {
 		
 	}
     void OnHPBelowZero(){
-        DestorySelf();
+        StartToDie();
+    }
+    public void StartToDie(){
+        motor.StopMoving();
+        animator.SetBool("Dead", true);
+		
+        //DestorySelf();
     }
     public void DestorySelf(){
+        
         Destroy(gameObject);
     }
 }

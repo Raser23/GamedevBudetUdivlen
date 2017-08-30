@@ -48,7 +48,10 @@ public class UnitMotor : MonoBehaviour
         }
     }
 
-	
+    public void StopMoving(){
+        StopAllCoroutines();
+    }
+
     void FacePoint(Vector3 pnt)
 	{
 		Quaternion newRotation = Quaternion.LookRotation(transform.position - pnt, Vector3.forward);
