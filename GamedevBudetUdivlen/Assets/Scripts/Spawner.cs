@@ -63,6 +63,8 @@ public class Spawner : MonoBehaviour {
     }
     void SpawnUnit(GameObject prefab){
         GameObject unit = Instantiate(prefab, transform.position, Quaternion.identity);
-		unit.GetComponent<UnitController>().SetTargetNode(startNode);
+        UnitController uc = unit.GetComponent<UnitController>();
+        uc.SetTargetNode(startNode);
+        GameManager.instance.OnUnitCreated(uc);
 	}
 }

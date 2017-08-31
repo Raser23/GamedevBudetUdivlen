@@ -7,6 +7,7 @@ public class UnitController : MonoBehaviour {
     public UnitMotor motor;
     public UnitStats stats;
     public Animator animator;
+    public GameObject HpBarPos;
      
     public void SetTargetNode(PathNode node)
     {
@@ -14,21 +15,24 @@ public class UnitController : MonoBehaviour {
         stats.HpBelowZero += OnHPBelowZero;
     }
 	
-	// Update is called once per frame
 	void Update () {
-		
+        
+        //Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+        //Debug.Log(screenPos);
 	}
+
     void OnHPBelowZero(){
         StartToDie();
     }
     public void StartToDie(){
         motor.StopMoving();
+        GameManager.instance.OnUnitDestroyed(this);
         animator.SetBool("Dead", true);
 		
-        //DestorySelf();
     }
     public void DestorySelf(){
-        
+
+
         Destroy(gameObject);
     }
 }
