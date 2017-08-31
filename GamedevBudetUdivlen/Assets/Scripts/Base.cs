@@ -10,7 +10,7 @@ public class Base : MonoBehaviour {
     {
         if(other.tag == "Unit")
         {
-            other.gameObject.GetComponentInParent<UnitController>().StartToDie();
+            other.gameObject.GetComponent<UnitController>().StartToDie();
         }
     }
 }
