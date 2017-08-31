@@ -15,10 +15,15 @@ public class Wave:ScriptableObject
         return unts.Dequeue();
     }
     public int unspawnedUnits{
+        
 		get
 		{
 			if (unts == null)
 				unts = new Queue<GameObject>(units);
             return unts.Count; }
+    }
+    public void Reset()
+    {
+        unts = null;
     }
 }
