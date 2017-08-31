@@ -6,21 +6,19 @@ public class AssaultTower : Tower {
 
 	public Transform rotor;
 	public float rotSpeed;
-
+	public Color gizmColor;
 
 
 	void Start () {
-		//TODO make these upgradable huisosu
-		dmg = 1;
-		//range = 10;
-		atk_speed = 2;
-		upgrade_cost = 150;
-		refund = 50;
-		desc = "Deals average damage at decent speed";
+		// dmg = 1;
+		// range = 10;
+		// atk_speed = 2;
+		// upgrade_cost = 150;
+		// refund = 50;
+		// desc = "Deals average damage at decent speed";
 		self_position = gameObject.transform.position;
-		atk_timer = 0;
-		//rotor = gameObject.transform.Find("Assault Head");
-		rotSpeed = 1;
+		// atk_timer = 0;
+		// rotSpeed = 1;
 	}
 	GameObject currentTarget;
 	
@@ -28,7 +26,6 @@ public class AssaultTower : Tower {
 		List<GameObject> targets = getTargets();
 		
 		if(targets.Count!=0){
-			print("pizdiec");
 			currentTarget = targets.closestTo(self_position);
 		}
 		else{
@@ -37,11 +34,9 @@ public class AssaultTower : Tower {
 	}
 
 	void turnTo(GameObject obj){
-		//print(rotor);
 		Quaternion newRotation = Quaternion.LookRotation(rotor.position - obj.transform.position,Vector3.forward);
 		newRotation.x = 0;
 		newRotation.y = 0;
-        
 		rotor.rotation = Quaternion.Lerp(rotor.rotation, newRotation, Time.deltaTime * 8);
 	}
 
@@ -67,12 +62,7 @@ public class AssaultTower : Tower {
 	}
 
 	void OnDrawGizmos(){
-		Gizmos.color = Color.green;
+		Gizmos.color = gizmColor;
 		Gizmos.DrawWireSphere(transform.position,range);
-		//Gizmos.DrawRay(rotor.position,rotor.forward.normalized * 10);
-		if(currentTarget!=null)
-		{
-			//Gizmos.DrawLine(rotor.position,currentTarget.transform.position);
-		}
 	}
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour{
-	public float dmg, range, atk_timer;
+	public float dmg, range;
+	protected float atk_timer;
 	public float atk_speed;//Time between attacks
 
 	public GameObject head;
