@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour {
                 currentWave.Reset();
             ResetTimeVars();
             currentWave = wavesQueue.Dequeue();
-            print(currentWave.unspawnedUnits);
+            //print(currentWave.unspawnedUnits);
         }
         if(passedTimeBtwSpawns >= timePerUnit && currentWave.unspawnedUnits >0)
         {
