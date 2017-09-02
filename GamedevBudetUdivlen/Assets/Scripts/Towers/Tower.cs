@@ -26,6 +26,6 @@ public class Tower : MonoBehaviour{
 
 	protected void attackUnit(GameObject unit){
 		UnitStats stats = unit.GetComponentInParent<UnitController>().stats;
-		stats.HP -= dmg;
+        stats.currentHP -= dmg;
 	}		
 }

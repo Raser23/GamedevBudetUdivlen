@@ -7,7 +7,7 @@ public class UnitMotor : MonoBehaviour
 
     public UnitStats stats;
 
-    public float turnDst = 0f;
+    //public float turnDst = 0f;
 
     PathNode target;
 
@@ -77,7 +77,7 @@ public class UnitMotor : MonoBehaviour
             p.Add(current.position);
             current = current.Next(gameObject);
         }
-        path = new Path(p.ToArray(), transform.position, turnDst);
+        path = new Path(p.ToArray(), transform.position, stats.turnDist);
         StartCoroutine(FollowPath());
 
     }

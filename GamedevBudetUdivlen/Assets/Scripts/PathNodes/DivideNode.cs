@@ -2,41 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrossroadNode : PathNode
-{
-    List<GameObject> visited;
+public class DivideNode : PathNode {
 
-	[SerializeField] public PathNode nextNode1;
-
+    public PathNode nextNode1;
+    private int count;
 
     public override void Start()
     {
         base.Start();
-        visited = new List<GameObject>();
+        count = 0;
     }
 
 	public override PathNode Next(GameObject obj)
 	{
-		
-        if (!visited.Contains(obj))
+        count++;
+		if (count%2 == 0)
 		{
-            visited.Add(obj);
+			
 			return nextNode;
 		}
 		else
 		{
-            visited.Remove(obj);
 			return nextNode1;
 		}
+
 		//return base.Next();
 	}
 
 	public override void OnDrawGizmos()
 	{
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.cyan;
 		if (nextNode)
 			Gizmos.DrawLine(transform.position, nextNode.position);
-        Gizmos.color = Color.red;
+		Gizmos.color = Color.cyan;
 		if (nextNode1)
 			Gizmos.DrawLine(transform.position, nextNode1.position);
 		//base.OnDrawGizmos();

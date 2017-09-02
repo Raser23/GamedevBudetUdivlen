@@ -34,17 +34,25 @@ public class UnitHPDrawer:MonoBehaviour {
 		}
         foreach(UnitController uc in delete)
         {
-			Destroy(hpBars[uc].gameObject);
-
+            hpBars[uc].GetComponent<HPBar>().DestroySelf();
 			hpBars.Remove(uc);
 			
         }
-        MoveBars();
+        //MoveBars();
     }
+
+
+
     RectTransform createHpBar(UnitController uc)
     {
         GameObject bar = Instantiate(hpBarPrefab);
         bar.transform.SetParent(hpBarsObj.transform);
+
+        HPBar hpbar = bar.gameObject.GetComponent<HPBar>();
+        hpbar.hp = uc.stats;
+        hpbar.following = uc.HpBarPos;
+        hpbar.StartUpdating();
+
         return bar.GetComponent<RectTransform>();
     }
     public void MoveBars()
@@ -55,7 +63,7 @@ public class UnitHPDrawer:MonoBehaviour {
             Vector3 screenPos = GameManager.instance.cam.WorldToScreenPoint(uc.HpBarPos.transform.position);
 
             bar.position = screenPos; 
-            bar.gameObject.GetComponent<Slider>().value = uc.stats.HP / uc.stats.maxHp;
+            //bar.gameObject.GetComponent<Slider>().value = uc.stats.clampedHP;
         } 
     }
 }
