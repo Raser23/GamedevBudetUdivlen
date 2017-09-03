@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public List<UnitController> units;
     public Camera cam;
+
+    public int coins = 0;
+
     void Awake()
     {
         instance = this;
