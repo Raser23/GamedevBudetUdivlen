@@ -24,6 +24,13 @@ public class Focuser : MonoBehaviour {
                     }
                     previousSelected = hit.transform.gameObject;
                 }
+                if (hit.transform.tag == "TowerPlace")
+                {
+                    if (!hit.collider.gameObject.GetComponent<TowerPlaceholder>().Has_Tower)
+                    {
+                        hit.collider.gameObject.GetComponent<TowerPlaceholder>().CreateTower();
+                    }
+                }
             }
         }
 	}
