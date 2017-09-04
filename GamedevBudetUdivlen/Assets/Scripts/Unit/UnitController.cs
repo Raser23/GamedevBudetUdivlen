@@ -8,7 +8,10 @@ public class UnitController : MonoBehaviour {
     public UnitStats stats;
     public Animator animator;
     public GameObject HpBarPos;
-     
+
+
+    public GameObject focusCircle;
+
     public void SetTargetNode(PathNode node)
     {
         motor.SetTarget(node);
@@ -35,4 +38,14 @@ public class UnitController : MonoBehaviour {
 
         Destroy(gameObject);
     }
+
+
+    public void OnFocused()
+    {
+        focusCircle.SetActive(true);
+    }
+    public void OnUnfocused()
+	{
+        focusCircle.SetActive(false);
+	}
 }
