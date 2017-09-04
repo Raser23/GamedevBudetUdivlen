@@ -7,18 +7,12 @@ public class AssaultTower : Tower {
 	public Transform rotor;
 	public float rotSpeed;
 	public Color gizmColor;
+	 
 
+	
 
 	void Start () {
-		// dmg = 1;
-		// range = 10;
-		// atk_speed = 2;
-		// upgrade_cost = 150;
-		// refund = 50;
-		// desc = "Deals average damage at decent speed";
 		self_position = gameObject.transform.position;
-		// atk_timer = 0;
-		// rotSpeed = 1;
 	}
 	GameObject currentTarget;
 	
@@ -51,7 +45,9 @@ public class AssaultTower : Tower {
 				atk_timer += Time.deltaTime;
 				if(atk_timer>=atk_speed){
 					atk_timer = 0;
-					attackUnit(currentTarget);
+					if(attackUnit(currentTarget)){
+						currentTarget = null;
+					}
 				}
 			}
 

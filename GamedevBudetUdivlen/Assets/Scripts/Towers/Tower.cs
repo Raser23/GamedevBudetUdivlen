@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour{
+	//TODO make these upgradable
 	public float dmg, range;
 	protected float atk_timer;
 	public float atk_speed;//Time between attacks
-
-	public GameObject head;
 
 	public LayerMask shoot_mask;
 
@@ -24,8 +23,12 @@ public class Tower : MonoBehaviour{
 		return targets; 
 	}
 
-	protected void attackUnit(GameObject unit){
+	protected bool attackUnit(GameObject unit){
 		UnitStats stats = unit.GetComponentInParent<UnitController>().stats;
-        stats.currentHP -= dmg;
+		stats.currentHP -= dmg;
+		if(stats.currentHP <=0){
+			return true;
+		}
+		return false;
 	}		
 }
