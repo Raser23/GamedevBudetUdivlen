@@ -19,9 +19,8 @@ public class TowerPlaceholder : MonoBehaviour {
     void OnMouseDown() {
         if (!Has_Tower)
         {
+            Ray ray = GameManager.instance.cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.gameObject == this.gameObject)
