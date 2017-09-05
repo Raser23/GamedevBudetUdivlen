@@ -57,14 +57,16 @@ public class Fabrique : MonoBehaviour {
 
     IEnumerator Evacuate()
     {
-        for (int i = 0; i < workersCount; i++)
+        int wc = workersCount;
+        for (int i = 0; i < wc; i++)
         {
             GameObject worker = Instantiate(workerPrefab, exit.transform.position, Quaternion.identity);
             UnitController uc = worker.GetComponent<UnitController>();
             uc.SetTargetNode(fabNode, nextFab.fabNode);
             uc.motor.OnPathEnd += tst;
             comingTo.Add(uc.motor,nextFab);
-            yield return new WaitForSeconds(0.5f); 
+            workersCount--;
+            yield return new WaitForSeconds(0.1f); 
 
         }
         workersCount = 0;
