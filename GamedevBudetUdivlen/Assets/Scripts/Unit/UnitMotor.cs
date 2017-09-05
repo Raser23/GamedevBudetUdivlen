@@ -4,12 +4,15 @@ using System.Collections.Generic;
 
 public class UnitMotor : MonoBehaviour 
 {
+    public delegate void Movement(UnitMotor um);
+    public event Movement OnPathEnd;
+
 
     public UnitStats stats;
 
-    //public float turnDst = 0f;
-
-    PathNode target;
+    
+    Node target;
+    Node stopNode;
 
     Path path;
 
@@ -31,6 +34,7 @@ public class UnitMotor : MonoBehaviour
                 if (pathIndex == path.finishLineIndex)
                 {
                     followingPath = false;
+                    OnPathEnd.Invoke(this);
                     break;
                 }else
                 {
@@ -42,8 +46,10 @@ public class UnitMotor : MonoBehaviour
                 FacePoint(path.lookPoints[pathIndex]);
                 transform.Translate(Vector3.up * Time.deltaTime * stats.speed,Space.Self);
 
-
             }
+
+
+
             yield return null;
         }
     }
@@ -67,20 +73,32 @@ public class UnitMotor : MonoBehaviour
         transform.rotation = newRotation;
 	}
 
-    public void SetTarget(PathNode _target)
+    public void SetTarget(Node _target,Node _stopNode)
     {
+        stopNode = _stopNode;
         target = _target;
         List<Vector3> p = new List<Vector3>();
-        PathNode current = target;
+        Node current = target;
 
-        while(current != null){
+        while(current != null)
+        {
             p.Add(current.position);
+            if (current == stopNode)
+                break;
             current = current.Next(gameObject);
         }
+
         path = new Path(p.ToArray(), transform.position, stats.turnDist);
         StartCoroutine(FollowPath());
 
     }
+
+
+
+	public void SetTarget(Node _target)
+	{
+        SetTarget(_target,null);
+	}
 
     public void OnDrawGizmosSelected()
     {

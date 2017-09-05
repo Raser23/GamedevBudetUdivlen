@@ -15,7 +15,7 @@ public class CrossroadNode : PathNode
         visited = new List<GameObject>();
     }
 
-	public override PathNode Next(GameObject obj)
+    public override Node Next(GameObject obj)
 	{
 		
         if (!visited.Contains(obj))

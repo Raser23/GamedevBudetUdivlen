@@ -12,12 +12,15 @@ public class UnitController : MonoBehaviour {
 
     public GameObject focusCircle;
 
-    public void SetTargetNode(PathNode node)
+    public void SetTargetNode(Node node, Node stopNode)
     {
-        motor.SetTarget(node);
+        motor.SetTarget(node,stopNode);
         stats.HpBelowZero += OnHPBelowZero;
     }
-	
+	public void SetTargetNode(Node node)
+	{
+        SetTargetNode(node,null);
+	}
 	void Update () {
         
         //Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);

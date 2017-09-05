@@ -6,7 +6,7 @@ public class ForkNode : PathNode {
         
     [SerializeField] public PathNode nextNode1;
 
-    public override PathNode Next(GameObject obj)
+    public override Node Next(GameObject obj)
     {
         int rand = Random.Range(1, 3);
 

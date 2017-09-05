@@ -13,7 +13,7 @@ public class DivideNode : PathNode {
         count = 0;
     }
 
-	public override PathNode Next(GameObject obj)
+    public override Node Next(GameObject obj)
 	{
         count++;
 		if (count%2 == 0)

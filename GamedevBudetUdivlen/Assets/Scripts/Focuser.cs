@@ -31,6 +31,14 @@ public class Focuser : MonoBehaviour {
                         hit.collider.gameObject.GetComponent<TowerPlaceholder>().CreateTower();
                     }
                 }
+
+                //print(hit.transform.name);
+				if (hit.transform.tag == "Fabrique")
+				{
+                    //print("Here");  
+                    hit.transform.GetComponent<Fabrique>().StartEvacuating();
+				}
+
             }
         }
 	}
