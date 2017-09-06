@@ -11,35 +11,44 @@ public class Spawner : MonoBehaviour {
     public Wave currentWave;
 
     private Queue<Wave> wavesQueue;
+    private int unitCount;
+
 
 	[SerializeField]private float passedTimeInWave;
 	[SerializeField] private float passedTimeBtwSpawns;
 	void Start () 
     {   
+
+
         wavesQueue = new Queue<Wave>(waves);
+
         if (waves.Count > 0)
         {
-            currentWave = wavesQueue.Dequeue();
+            NextWave();
         }
         ResetTimeVars();
     }
 
-
+    void NextWave()
+    {
+        currentWave =Object.Instantiate( wavesQueue.Dequeue()) as Wave;
+		unitCount = 0; 
+    }
 
 	void Update()
     {
         IncTimeVars();
         if(passedTimeInWave >= timePerWave && wavesQueue.Count > 0){
-            if (currentWave != null)
-                currentWave.Reset();
+
             ResetTimeVars();
-            currentWave = wavesQueue.Dequeue();
-            //print(currentWave.unspawnedUnits);
+            NextWave();
         }
-        if(passedTimeBtwSpawns >= timePerUnit && currentWave.unspawnedUnits >0)
+
+        if(passedTimeBtwSpawns >= timePerUnit && unitCount < currentWave.units.Count)
         {
-            SpawnUnit(currentWave.getUnit());
+            SpawnUnit(currentWave.getUnit(unitCount));
             passedTimeBtwSpawns -= timePerUnit;
+            unitCount++;
         }
 
 

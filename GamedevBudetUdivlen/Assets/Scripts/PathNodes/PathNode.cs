@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathNode : Node 
 {
 
-    [SerializeField] public PathNode nextNode;
+    [SerializeField] public Node nextNode;
 
     public override Node Next(GameObject obj)
     {

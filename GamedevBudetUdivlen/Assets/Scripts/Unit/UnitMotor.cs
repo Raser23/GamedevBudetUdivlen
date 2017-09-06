@@ -23,7 +23,7 @@ public class UnitMotor : MonoBehaviour
         bool followingPath = true;
         int pathIndex = 0;
 
-        FacePoint2(path.lookPoints[0]);
+        FacePoint2(path.lookPoints[0].position);
 
         while (followingPath)
         {
@@ -36,23 +36,32 @@ public class UnitMotor : MonoBehaviour
                     followingPath = false;
                     OnPathEnd.Invoke(this);
                     break;
-                }else
+                }
+                else
                 {
                     pathIndex++;
+                    List<Node> uncompletedNodes = new List<Node>();
+
+                    for (int i = pathIndex ; i < path.lookPoints.Length;i++){
+                        uncompletedNodes.Add(path.lookPoints[i]);
+                    }
+         
+
+                    path = calculatePath(uncompletedNodes,1);
+
+                    pathIndex =0;
                 }
             }
             if (followingPath){
-                
-                FacePoint(path.lookPoints[pathIndex]);
+                FacePoint(path.lookPoints[pathIndex].position);
                 transform.Translate(Vector3.up * Time.deltaTime * stats.speed,Space.Self);
-
             }
-
-
 
             yield return null;
         }
     }
+
+
 
     public void StopMoving(){
         StopAllCoroutines();
@@ -77,22 +86,46 @@ public class UnitMotor : MonoBehaviour
     {
         stopNode = _stopNode;
         target = _target;
-        List<Vector3> p = new List<Vector3>();
-        Node current = target;
 
-        while(current != null)
-        {
-            p.Add(current.position);
-            if (current == stopNode)
-                break;
-            current = current.Next(gameObject);
-        }
-
-        path = new Path(p.ToArray(), transform.position, stats.turnDist);
+        path = calculatePath(target,3);
         StartCoroutine(FollowPath());
 
     }
 
+    Path calculatePath(Node start,int l)
+    {
+        int pathL = l;
+        List<Node> p = new List<Node>();
+		Node current = start;
+        int counter = 0;
+		while (current != null && counter < pathL)
+		{
+			p.Add(current);
+			if (current == stopNode)
+				break;
+			current = current.Next(gameObject);
+			counter++;
+		}
+        return new Path(p.ToArray(), transform.position, stats.turnDist);
+    }
+	Path calculatePath(List<Node> start, int l)
+	{
+		int pathL = l;
+        List<Node> p = new List<Node>(start);
+        Node current = start[start.Count-1];
+		int counter = 0;
+		while (current != null && counter < pathL)
+		{
+			
+			if (current == stopNode)
+				break;
+			current = current.Next(gameObject);
+			counter++;
+            if(current != null)
+                p.Add(current);
+		}
+		return new Path(p.ToArray(), transform.position, stats.turnDist);
+	}
 
 
 	public void SetTarget(Node _target)

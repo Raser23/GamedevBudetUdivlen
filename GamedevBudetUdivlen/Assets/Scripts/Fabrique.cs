@@ -8,8 +8,11 @@ public class Fabrique : MonoBehaviour {
     public int factor;
     public int coinsPerWorker;
     public int secForPay;
-    private float passedTime;
+    public int maxWorkersCount;
+    public float timeForEvacuateOne;
 
+    private float passedTime;
+    private bool evacuating;
 
     public Fabrique nextFab;
     public FabriqueNode fabNode;
@@ -20,6 +23,7 @@ public class Fabrique : MonoBehaviour {
 
     public void Start()
     {
+        evacuating = false;
         passedTime = 0;
         comingTo = new Dictionary<UnitMotor, Fabrique>();
     }
@@ -34,8 +38,15 @@ public class Fabrique : MonoBehaviour {
     }
 	public void AddWorker(UnitMotor um)
 	{
-		Destroy(um.gameObject);
-		workersCount++;
+        if (workersCount < maxWorkersCount && !evacuating)
+        {
+            workersCount++;
+            Destroy(um.gameObject);
+        }
+        else
+        {
+            SendToNextFabrique(um.GetComponent<UnitController>());
+        }
 	}
 
 	public void tst(UnitMotor um)
@@ -46,12 +57,14 @@ public class Fabrique : MonoBehaviour {
 			comingTo.Remove(um);
 		}
         um.OnPathEnd -= tst;
-		//print("endos");
 	}
 
     public void StartEvacuating()
     {
-        print("here");
+        evacuating = true;
+        Renderer rend = gameObject.GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("Specular");
+        rend.material.SetColor("_SpecColor",Color.red);
         StartCoroutine("Evacuate");
     }
 
@@ -62,16 +75,20 @@ public class Fabrique : MonoBehaviour {
         {
             GameObject worker = Instantiate(workerPrefab, exit.transform.position, Quaternion.identity);
             UnitController uc = worker.GetComponent<UnitController>();
-            uc.SetTargetNode(fabNode, nextFab.fabNode);
-            uc.motor.OnPathEnd += tst;
-            comingTo.Add(uc.motor,nextFab);
+            SendToNextFabrique(uc);
             workersCount--;
-            yield return new WaitForSeconds(0.1f); 
+            yield return new WaitForSeconds(timeForEvacuateOne); 
 
         }
         workersCount = 0;
     }
 
+    void SendToNextFabrique(UnitController uc)
+    {
+		uc.SetTargetNode(fabNode, nextFab.fabNode);
+		uc.motor.OnPathEnd += tst;
+		comingTo.Add(uc.motor, nextFab);
+    }
 
 
 }

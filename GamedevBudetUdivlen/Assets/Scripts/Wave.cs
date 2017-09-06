@@ -7,23 +7,10 @@ public class Wave:ScriptableObject
 {
     public List<GameObject> units;
 
-    Queue<GameObject> unts;
-    public GameObject getUnit()
+    public GameObject getUnit(int index)
     {
-        if (unts == null)
-            unts = new Queue<GameObject>(units);
-        return unts.Dequeue();
+        return units[index];
     }
-    public int unspawnedUnits{
-        
-		get
-		{
-			if (unts == null)
-				unts = new Queue<GameObject>(units);
-            return unts.Count; }
-    }
-    public void Reset()
-    {
-        unts = null;
-    }
+
+
 }
