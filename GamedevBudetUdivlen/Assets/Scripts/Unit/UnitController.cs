@@ -21,10 +21,9 @@ public class UnitController : MonoBehaviour {
 	{
         SetTargetNode(node,null);
 	}
-	void Update () {
+    protected virtual void Update () {
         
-        //Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-        //Debug.Log(screenPos);
+
 	}
 
     void OnHPBelowZero(){

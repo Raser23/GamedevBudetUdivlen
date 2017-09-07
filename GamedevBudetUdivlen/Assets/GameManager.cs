@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public List<UnitController> units;
     public Camera cam;
 
+    public LayerMask unitsMask;
+
     public int coins = 0;
 
     void Awake()

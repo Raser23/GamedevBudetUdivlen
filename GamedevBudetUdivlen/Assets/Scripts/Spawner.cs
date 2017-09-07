@@ -38,6 +38,7 @@ public class Spawner : MonoBehaviour {
 	void Update()
     {
         IncTimeVars();
+        //print(wavesQueue.Count);
         if(passedTimeInWave >= timePerWave && wavesQueue.Count > 0){
 
             ResetTimeVars();
@@ -72,6 +73,7 @@ public class Spawner : MonoBehaviour {
     }
     void SpawnUnit(GameObject prefab){
         GameObject unit = Instantiate(prefab, transform.position, Quaternion.identity);
+        unit.transform.SetParent(transform);
         UnitController uc = unit.GetComponent<UnitController>();
         uc.SetTargetNode(startNode);
         GameManager.instance.OnUnitCreated(uc);
