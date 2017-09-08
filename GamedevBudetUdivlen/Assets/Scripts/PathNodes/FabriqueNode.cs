@@ -17,6 +17,11 @@ public class FabriqueNode : Node {
         }
     }
 
+    public override void OnCompleted()
+    {
+        
+    }
+
     public void OnDrawGizmos()
     {
         if(next != null)

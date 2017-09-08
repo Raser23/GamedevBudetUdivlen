@@ -20,6 +20,11 @@ public class PathNode : Node
         
     }
 
+    public override void OnCompleted()
+    {
+        //print("Crossed");
+
+    }
 
 
 	public virtual void OnDrawGizmos()

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class UnitMotor : MonoBehaviour 
 {
-    public delegate void Movement(UnitMotor um);
-    public event Movement OnPathEnd;
+    public delegate void MovementUM(UnitMotor um);
+    public event MovementUM OnPathEnd;
+    public delegate void Movement();
+	public event Movement OnCrossedNode;
 
 
-    public UnitStats stats;
+	public UnitStats stats;
 
     
     Node target;
@@ -39,6 +41,8 @@ public class UnitMotor : MonoBehaviour
                 }
                 else
                 {
+                    path.lookPoints[pathIndex].OnCompleted();
+                    OnCrossedNode.Invoke();
                     pathIndex++;
                     List<Node> uncompletedNodes = new List<Node>();
 

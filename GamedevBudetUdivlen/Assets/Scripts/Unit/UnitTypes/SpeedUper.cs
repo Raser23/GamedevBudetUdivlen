@@ -5,6 +5,14 @@ using UnityEngine;
 public class SpeedUper : UnitController {
 
     public float range;
+    public GameObject RangeDrawer;
+
+    protected override void Start()
+    {
+        base.Start();
+        RangeDrawer.transform.localScale = new Vector3(range, range, 0.5f);
+    }
+
     protected override void Update()
     {
         base.Update();

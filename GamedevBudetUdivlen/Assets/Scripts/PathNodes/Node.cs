@@ -19,4 +19,6 @@ public abstract class Node : MonoBehaviour
 		}
 	}
 
+    public abstract void OnCompleted();
+
 }

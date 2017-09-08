@@ -21,25 +21,43 @@ public class UnitController : MonoBehaviour {
 	{
         SetTargetNode(node,null);
 	}
-    protected virtual void Update () {
+
+	protected virtual void Start()
+	{
+        motor.OnCrossedNode += OnCrossNode;
+        motor.OnPathEnd += OnPathEnd;
+	}
+    protected virtual void Update () 
+    {
         
 
 	}
 
-    void OnHPBelowZero(){
+    void OnHPBelowZero()
+    {
         StartToDie();
     }
-    public void StartToDie(){
+    public void StartToDie()
+    {
         motor.StopMoving();
         GameManager.instance.OnUnitDestroyed(this);
         animator.SetBool("Dead", true);
 		
     }
-    public void DestorySelf(){
 
-
+    public void DestorySelf()
+    {
         Destroy(gameObject);
     }
+
+    public void OnCrossNode()
+    {
+        //print("pizda nahui");
+    }
+    public void OnPathEnd(UnitMotor um)
+	{
+		//print("pizda nahui");
+	}
 
 
     public void OnFocused()
