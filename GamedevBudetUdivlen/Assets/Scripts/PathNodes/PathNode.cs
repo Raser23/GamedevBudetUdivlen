@@ -26,6 +26,12 @@ public class PathNode : Node
 
     }
 
+    public override List<Node> GetAllNodes()
+    {
+        List<Node> nodes = new List<Node>();
+        nodes.Add(nextNode);
+        return nodes;
+    }
 
 	public virtual void OnDrawGizmos()
 	{

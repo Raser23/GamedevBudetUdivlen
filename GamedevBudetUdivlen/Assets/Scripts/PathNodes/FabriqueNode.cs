@@ -22,6 +22,13 @@ public class FabriqueNode : Node {
         
     }
 
+    public override List<Node> GetAllNodes()
+    {
+        List<Node> nodes = new List<Node>();
+        nodes.Add(next);
+        return nodes;
+    }
+
     public void OnDrawGizmos()
     {
         if(next != null)

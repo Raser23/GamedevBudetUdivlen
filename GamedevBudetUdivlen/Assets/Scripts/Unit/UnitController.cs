@@ -50,11 +50,11 @@ public class UnitController : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void OnCrossNode()
+    public virtual void OnCrossNode(Node n)
     {
         //print("pizda nahui");
     }
-    public void OnPathEnd(UnitMotor um)
+    public virtual void OnPathEnd(UnitMotor um)
 	{
 		//print("pizda nahui");
 	}

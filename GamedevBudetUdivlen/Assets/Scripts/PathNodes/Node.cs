@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Node : MonoBehaviour
 {
@@ -21,4 +21,5 @@ public abstract class Node : MonoBehaviour
 
     public abstract void OnCompleted();
 
+    public abstract List<Node> GetAllNodes();
 }

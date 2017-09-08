@@ -6,7 +6,7 @@ public class UnitMotor : MonoBehaviour
 {
     public delegate void MovementUM(UnitMotor um);
     public event MovementUM OnPathEnd;
-    public delegate void Movement();
+    public delegate void Movement(Node pn);
 	public event Movement OnCrossedNode;
 
 
@@ -42,7 +42,7 @@ public class UnitMotor : MonoBehaviour
                 else
                 {
                     path.lookPoints[pathIndex].OnCompleted();
-                    OnCrossedNode.Invoke();
+                    OnCrossedNode.Invoke(path.lookPoints[pathIndex]);
                     pathIndex++;
                     List<Node> uncompletedNodes = new List<Node>();
 
@@ -88,11 +88,12 @@ public class UnitMotor : MonoBehaviour
 
     public void SetTarget(Node _target,Node _stopNode)
     {
+        StopCoroutine("FollowPath");
         stopNode = _stopNode;
         target = _target;
 
         path = calculatePath(target,3);
-        StartCoroutine(FollowPath());
+        StartCoroutine("FollowPath");
 
     }
 

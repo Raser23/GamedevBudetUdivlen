@@ -28,7 +28,12 @@ public class DivideNode : PathNode {
 
 		//return base.Next();
 	}
-
+	public override List<Node> GetAllNodes()
+	{
+		List<Node> nodes = base.GetAllNodes();
+		nodes.Add(nextNode1);
+		return nodes;
+	}
 	public override void OnDrawGizmos()
 	{
         Gizmos.color = Color.cyan;
