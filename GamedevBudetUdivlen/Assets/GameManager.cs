@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TowerType{
+    Assault,Arcane,Barracks,Buffer
+}
+
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
