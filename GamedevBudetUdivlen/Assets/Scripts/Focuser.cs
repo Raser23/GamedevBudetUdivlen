@@ -1,15 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Focuser : MonoBehaviour {
 
     private GameObject previousSelected;
 	public FInspectorController inspector;
     public TowerPanel sidePanel;
-
+    public EventSystem es;
 	void Update () 
     {
+        if (es.IsPointerOverGameObject())
+		{
+            //Pointer over UI
+            //print("da");
+			return; // exit out of OnMouseDown() because its over the uGUI
+		}
+        else
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = GameManager.instance.cam.ScreenPointToRay(Input.mousePosition);
@@ -44,6 +54,7 @@ public class Focuser : MonoBehaviour {
 				}
                 else
                 {
+                    print(hit.transform.gameObject.name);
                     //clicknuli prosto taks       
                 }
 
