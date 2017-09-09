@@ -6,10 +6,11 @@ public class TowerPlaceholder : MonoBehaviour {
 
     public bool Has_Tower = false;
 
-    public void CreateTower()
+
+    public void CreateTower(TowerType type)
     {
-        print("Menu appears");
-        GameObject Tower = Instantiate(Resources.Load("Assault Tower (nice)", typeof(GameObject))) as GameObject;
+        
+        GameObject Tower = Instantiate(GameManager.instance.towerDict[type]);
         Tower.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 2);
         Has_Tower = true;
     }
