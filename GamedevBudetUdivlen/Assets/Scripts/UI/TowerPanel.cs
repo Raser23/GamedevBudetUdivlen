@@ -13,8 +13,13 @@ public class TowerPanel : MonoBehaviour {
 
 		if(mode == "Build"){
 			buildLayout.SetActive(true);
-			buttons[0].onClick.AddListener(tp.CreateTower);
-			buttons[0].onClick.AddListener(closeTowerPanel);
+			foreach(Button button in buttons){
+				button.onClick.RemoveAllListeners();
+			}
+			buttons[0].onClick.AddListener(delegate(){ tp.CreateTower(TowerType.Assault); closeTowerPanel(); });
+			buttons[1].onClick.AddListener(delegate(){ tp.CreateTower(TowerType.Barracks); closeTowerPanel(); });
+			buttons[2].onClick.AddListener(delegate(){ tp.CreateTower(TowerType.Buffer); closeTowerPanel(); });
+			buttons[3].onClick.AddListener(delegate(){ tp.CreateTower(TowerType.Arcane); closeTowerPanel(); });
 		}
 		else if(mode == "Upgrade"){
 			upgradeLayout.SetActive(true);
@@ -23,6 +28,7 @@ public class TowerPanel : MonoBehaviour {
 			Debug.Log("Wrong mode");
 		}
 	}
+
 
 	public void closeTowerPanel(){
 		gameObject.SetActive(false);

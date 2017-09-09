@@ -21,11 +21,12 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         instance = this;
+        towerDict = new Dictionary<TowerType, GameObject>();
         units = new List<UnitController>();
-        towerDict[TowerType.Assault] = Resources.Load("Towers/Assault", typeof(GameObject)) as GameObject;
-        towerDict[TowerType.Arcane] = Resources.Load("Tower/Arcane", typeof(GameObject)) as GameObject;
-        towerDict[TowerType.Barracks] = Resources.Load("Tower/Barracks", typeof(GameObject)) as GameObject;
-        towerDict[TowerType.Buffer] = Resources.Load("Tower/Buffer", typeof(GameObject)) as GameObject;
+        towerDict[TowerType.Assault] = Resources.Load<GameObject>("Towers/Assault");
+        towerDict[TowerType.Arcane] = Resources.Load<GameObject>("Towers/Arcane");
+        towerDict[TowerType.Barracks] = Resources.Load<GameObject>("Towers/Barracks");
+        towerDict[TowerType.Buffer] = Resources.Load<GameObject>("Towers/Buffer");
     }
 	public void OnUnitCreated(UnitController controller)
 	{
