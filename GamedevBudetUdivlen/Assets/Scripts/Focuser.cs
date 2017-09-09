@@ -26,6 +26,7 @@ public class Focuser : MonoBehaviour {
                     }
                     previousSelected = hit.transform.gameObject;
                 }
+                else
                 if (hit.transform.tag == "TowerPlace")
                 {
                     TowerPlaceholder tp = hit.collider.gameObject.GetComponent<TowerPlaceholder>();
@@ -34,13 +35,17 @@ public class Focuser : MonoBehaviour {
                         sidePanel.openTowerPanel("Build", tp);
                     }
                 }
-
+                else
                 //print(hit.transform.name);
 				if (hit.transform.tag == "Fabrique")
 				{
                     //print("Here");  
                     inspector.openInspector(hit.collider.gameObject);
 				}
+                else
+                {
+                    //clicknuli prosto taks       
+                }
 
             }
         }
