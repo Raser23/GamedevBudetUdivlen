@@ -18,4 +18,9 @@ public static class Extensions{
 		return closest; 
 	}
 
+	public static GameObject choosePriority(this List<GameObject> positions){
+
+		return positions[0];
+	}
+
 }
