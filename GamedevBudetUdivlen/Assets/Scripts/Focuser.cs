@@ -5,7 +5,8 @@ using UnityEngine;
 public class Focuser : MonoBehaviour {
 
     private GameObject previousSelected;
-	
+	public FInspectorController inspector;
+
 	void Update () 
     {
         if (Input.GetMouseButtonDown(0))
@@ -36,7 +37,7 @@ public class Focuser : MonoBehaviour {
 				if (hit.transform.tag == "Fabrique")
 				{
                     //print("Here");  
-                    hit.transform.GetComponent<Fabrique>().StartEvacuating();
+                    inspector.openInspector(hit.collider.gameObject);
 				}
 
             }
