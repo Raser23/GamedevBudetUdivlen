@@ -6,6 +6,7 @@ public class Focuser : MonoBehaviour {
 
     private GameObject previousSelected;
 	public FInspectorController inspector;
+    public TowerPanel sidePanel;
 
 	void Update () 
     {
@@ -27,9 +28,10 @@ public class Focuser : MonoBehaviour {
                 }
                 if (hit.transform.tag == "TowerPlace")
                 {
-                    if (!hit.collider.gameObject.GetComponent<TowerPlaceholder>().Has_Tower)
+                    TowerPlaceholder tp = hit.collider.gameObject.GetComponent<TowerPlaceholder>();
+                    if (!tp.Has_Tower)
                     {
-                        hit.collider.gameObject.GetComponent<TowerPlaceholder>().CreateTower();
+                        sidePanel.openTowerPanel("Build", tp);
                     }
                 }
 
