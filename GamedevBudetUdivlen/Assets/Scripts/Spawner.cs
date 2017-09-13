@@ -29,10 +29,16 @@ public class Spawner : MonoBehaviour {
         ResetTimeVars();
     }
 
-    void NextWave()
+    public void NextWave()
     {
+        ResetTimeVars();
         currentWave =Object.Instantiate( wavesQueue.Dequeue()) as Wave;
 		unitCount = 0; 
+    }
+
+    public bool HasNextWave()
+    {
+        return wavesQueue.Count > 0;
     }
 
 	void Update()
@@ -41,19 +47,23 @@ public class Spawner : MonoBehaviour {
         //print(wavesQueue.Count);
         if(passedTimeInWave >= timePerWave && wavesQueue.Count > 0){
 
-            ResetTimeVars();
             NextWave();
         }
 
         if(passedTimeBtwSpawns >= timePerUnit && unitCount < currentWave.units.Count)
         {
-            SpawnUnit(currentWave.getUnit(unitCount));
-            passedTimeBtwSpawns -= timePerUnit;
-            unitCount++;
+            SpawnNextUnit(); 
         }
 
-
     }
+
+    void SpawnNextUnit()
+    {
+		SpawnUnit(currentWave.getUnit(unitCount));
+		passedTimeBtwSpawns -= timePerUnit;
+		unitCount++;
+    }
+
     void ResetTimeVars()
     {
 		passedTimeInWave = 0;

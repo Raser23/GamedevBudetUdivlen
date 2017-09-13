@@ -27,36 +27,38 @@ public class Focuser : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.tag == "Unit")
-                {
-                    hit.transform.GetComponent<UnitController>().OnFocused();
-                    if(previousSelected != null)
-                    {
-                        previousSelected.GetComponent<UnitController>().OnUnfocused();
-                    }
-                    previousSelected = hit.transform.gameObject;
+                switch(hit.transform.tag){
+                    case "Unit":
+						hit.transform.GetComponent<UnitController>().OnFocused();
+						if (previousSelected != null)
+						{
+							previousSelected.GetComponent<UnitController>().OnUnfocused();
+						}
+						previousSelected = hit.transform.gameObject;
+
+                        break;
+                    case "TowerPlace":
+						TowerPlaceholder tp = hit.collider.gameObject.GetComponent<TowerPlaceholder>();
+						if (!tp.Has_Tower)
+						{
+							sidePanel.openTowerPanel("Build", tp);
+						}
+
+                        break;
+					case "Fabrique":
+                        inspector.openInspector(hit.collider.gameObject);
+						break;
+					case "Spawner":
+                        Spawner spw = hit.transform.GetComponent<Spawner>();
+                        if(spw.HasNextWave())
+                            spw.NextWave();
+						break;
+                    default:
+                        print(hit.transform.gameObject.name);
+                        break;
+
                 }
-                else
-                if (hit.transform.tag == "TowerPlace")
-                {
-                    TowerPlaceholder tp = hit.collider.gameObject.GetComponent<TowerPlaceholder>();
-                    if (!tp.Has_Tower)
-                    {
-                        sidePanel.openTowerPanel("Build", tp);
-                    }
-                }
-                else
-                //print(hit.transform.name);
-				if (hit.transform.tag == "Fabrique")
-				{
-                    //print("Here");  
-                    inspector.openInspector(hit.collider.gameObject);
-				}
-                else
-                {
-                    print(hit.transform.gameObject.name);
-                    //clicknuli prosto taks       
-                }
+
 
             }
         }
