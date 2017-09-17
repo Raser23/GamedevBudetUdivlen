@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     public Camera cam;
 
     public LayerMask unitsMask;
+    public Focuser focuser;
+
 
     public int coins = 0;
 
