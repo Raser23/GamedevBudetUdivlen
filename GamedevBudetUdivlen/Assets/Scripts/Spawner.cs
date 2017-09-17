@@ -10,17 +10,24 @@ public class Spawner : MonoBehaviour {
     public List<Wave> waves;
     public Wave currentWave;
 
+    public int maxWaveCount;
+    public int currentWaveNum;
+
+
     private Queue<Wave> wavesQueue;
     private int unitCount;
 
 
-	[SerializeField]private float passedTimeInWave;
+
+	[SerializeField] private float passedTimeInWave;
 	[SerializeField] private float passedTimeBtwSpawns;
 	void Start () 
     {   
 
 
         wavesQueue = new Queue<Wave>(waves);
+        maxWaveCount = wavesQueue.Count;
+        currentWaveNum = 0;
 
         if (waves.Count > 0)
         {
@@ -31,6 +38,7 @@ public class Spawner : MonoBehaviour {
 
     public void NextWave()
     {
+        currentWaveNum++;
         ResetTimeVars();
         currentWave =Object.Instantiate( wavesQueue.Dequeue()) as Wave;
 		unitCount = 0; 
