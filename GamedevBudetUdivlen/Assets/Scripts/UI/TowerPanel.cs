@@ -8,6 +8,12 @@ public class TowerPanel : MonoBehaviour {
 	public GameObject upgradeLayout;
 	public Button[] buttons = new Button[4];
 
+	void Start(){
+		GameManager.instance.focuser.ClickNotOnCanvas += closeTowerPanel;
+	}
+
+
+
 	public void openTowerPanel(string mode, TowerPlaceholder tp){
 		gameObject.SetActive(true);
 

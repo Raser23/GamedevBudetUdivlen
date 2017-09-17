@@ -29,10 +29,11 @@ public class Focuser : MonoBehaviour {
         }
         else
         {
-            if(ClickNotOnCanvas != null && ClickNotOnCanvas.GetInvocationList().Length > 0 )
-                ClickNotOnCanvas.Invoke();
+            
             if (Input.GetMouseButtonDown(0))
             {
+                if(ClickNotOnCanvas != null && ClickNotOnCanvas.GetInvocationList().Length > 0 )
+                    ClickNotOnCanvas.Invoke();
                 Ray ray = GameManager.instance.cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
