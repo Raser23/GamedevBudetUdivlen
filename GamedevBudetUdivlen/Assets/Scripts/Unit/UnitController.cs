@@ -8,7 +8,7 @@ public class UnitController : MonoBehaviour {
     public UnitStats stats;
     public Animator animator;
     public GameObject HpBarPos;
-
+    public GameObject head;
 
     public GameObject focusCircle;
 
