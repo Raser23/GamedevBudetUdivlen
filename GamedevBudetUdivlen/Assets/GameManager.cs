@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public LayerMask unitsMask;
     public Focuser focuser;
 
+    public Spawner spawner;
 
     public int coins = 0;
 
