@@ -40,7 +40,7 @@ public class AssaultTower : Tower {
 		if(currentTarget){
 			laser.gameObject.SetActive(true);
 			float dist = Vector3.Distance(currentTarget.transform.position, self_position);
-			Vector3 d  = currentTarget.transform.position - muzzle.position;
+            Vector3 d  = currentTarget.GetComponent<UnitController>().head.transform.position - muzzle.position;
 			laser.EndPos = new Vector3(0, Mathf.Sqrt(Mathf.Pow(d.x, 2) + Mathf.Pow(d.y, 2))/muzzle.transform.lossyScale.y, d.z/muzzle.transform.lossyScale.y);
 			if(dist>range){
 				currentTarget = null;
