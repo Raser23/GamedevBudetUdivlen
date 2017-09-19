@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 
     public Dictionary<TowerType, GameObject> towerDict;
 
+    public Upgrade buildStart;
+
     void Awake()
     {
         instance = this;

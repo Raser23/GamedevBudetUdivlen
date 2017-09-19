@@ -42,7 +42,8 @@ public class UnitMotor : MonoBehaviour
                 else
                 {
                     path.lookPoints[pathIndex].OnCompleted();
-                    OnCrossedNode.Invoke(path.lookPoints[pathIndex]);
+                    if (OnCrossedNode != null && OnCrossedNode.GetInvocationList().Length!=0)
+                        OnCrossedNode.Invoke(path.lookPoints[pathIndex]);
                     pathIndex++;
                     List<Node> uncompletedNodes = new List<Node>();
 

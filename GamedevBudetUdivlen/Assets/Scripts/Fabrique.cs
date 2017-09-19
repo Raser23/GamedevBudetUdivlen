@@ -11,6 +11,8 @@ public class Fabrique : MonoBehaviour {
     public int maxWorkersCount;
     public float timeForEvacuateOne;
 
+    public bool triggerEvacuating;
+
     private float passedTime;
     private bool evacuating;
 
@@ -27,6 +29,20 @@ public class Fabrique : MonoBehaviour {
         passedTime = 0;
         comingTo = new Dictionary<UnitMotor, Fabrique>();
     }
+
+	private void OnTriggerEnter(Collider other)
+	{
+        if (!triggerEvacuating)
+            return;
+
+		if (other.tag == "Unit")
+		{
+            if(!evacuating)
+            StartEvacuating();
+		}
+	}
+
+
     public void FixedUpdate()
     {
         passedTime += Time.fixedDeltaTime;
@@ -86,7 +102,7 @@ public class Fabrique : MonoBehaviour {
 
     void SendToNextFabrique(UnitController uc)
     {
-		uc.SetTargetNode(fabNode, nextFab.fabNode);
+        uc.SetTargetNode(fabNode.next, nextFab.fabNode);
 		uc.motor.OnPathEnd += tst;
 		comingTo.Add(uc.motor, nextFab);
     }
