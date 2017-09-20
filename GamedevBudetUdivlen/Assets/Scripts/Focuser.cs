@@ -52,9 +52,10 @@ public class Focuser : MonoBehaviour {
                             break;
                         case "TowerPlace":
                             TowerPlaceholder tp = hit.collider.gameObject.GetComponent<TowerPlaceholder>();
-                            if (!tp.Has_Tower)
+                            if (tp.HasUpgrade)
                             {
-                                sidePanel.openTowerPanel("Build", tp);
+                                //sidePanel.openTowerPanel("Build", tp);
+                                tp.UpgradeTower(0);
                             }
 
                             break;
